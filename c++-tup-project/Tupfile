@@ -1,0 +1,61 @@
+# Project settings
+EXE = example
+SRCDIR = src
+OBJDIR = build
+
+# Conform to C++14
+CC = gcc
+CXX = g++
+CFLAGS += -std=c99
+CPPFLAGS += -std=c++14
+OPTIMIZATION = -O
+CFLAGS += $(OPTIMIZATION) -std=c99
+CPPFLAGS += $(OPTIMIZATION) -std=c++14 -fno-exceptions
+
+# Basic set of default warnings
+COMMMONFLAGS += -Wall
+COMMMONFLAGS += -Werror
+COMMMONFLAGS += -Wfloat-equal
+COMMMONFLAGS += -Wundef
+COMMMONFLAGS += -Wshadow
+COMMMONFLAGS += -Wpointer-arith
+COMMMONFLAGS += -Wcast-align
+COMMMONFLAGS += -Wwrite-strings
+COMMMONFLAGS += -Waggregate-return
+
+CFLAGS += -Wstrict-prototypes
+CFLAGS += $(COMMMONFLAGS)
+
+CPPFLAGS += $(COMMMONFLAGS)
+
+# code generation
+CODEGEN += -ftrapv
+#CODEGEN += -fverbose-asm
+
+CFLAGS += $(CODEGEN)
+CPPFLAGS += $(CODEGEN)
+
+## mileage may vary
+#CFLAGS += -Wcast-qual
+#CFLAGS += -Wswitch-default
+#CFLAGS += -Wswitch-enum
+#CFLAGS += -Wconversion
+#CFLAGS += -Wunreachable-code
+
+#CPPFLAGS += -Wcast-qual
+#CPPFLAGS += -Wswitch-default
+#CPPFLAGS += -Wswitch-enum
+#CPPFLAGS += -Wconversion
+#CPPFLAGS += -Wunreachable-code
+
+# Debug Flags
+DEBUGFLAGS += -g
+CFLAGS += $(DEBUGFLAGS)
+CPPFLAGS += $(DEBUGFLAGS)
+
+# Linking
+LDFLAGS += 
+
+: foreach $(SRCDIR)/*.cpp |> $(CXX) $(CPPFLAGS) -c %f -o %o |> $(OBJDIR)/%B.o
+: $(OBJDIR)/*.o |> $(CXX) $(LDFLAGS) %f -o %o |> $(EXE)
+
