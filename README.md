@@ -1,3 +1,8 @@
+# Deprecated
+
+Some of the info here is useful, but also horrifically out of date and made when I was still learning the tool chain. In particular, the CMake example is very amateurish and you should not use it as a basis for your projects.
+
+
 Project Templates for C and C++
 ===============================
 
